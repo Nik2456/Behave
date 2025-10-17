@@ -24,3 +24,4 @@ def step_impl(context):
 def step_impl(context):
     text=context.driver.find_element(By.CLASS_NAME,"product_label").text
     assert text == "Products",f"{text} should be 'Products'"
+    context.driver.quit()
