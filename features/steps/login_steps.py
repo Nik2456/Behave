@@ -20,8 +20,20 @@ def step_impl(context):
 def step_impl(context):
     context.driver.find_element(By.ID,"login-button").click()
 
+@when("user enters invalid username and password")
+def step_impl(context):
+    context.driver.find_element(By.ID, "user-name").send_keys("standard_user2")
+    context.driver.find_element(By.ID, "password").send_keys("secret_sauce3")
+    time.sleep(5)
+
 @then("user should be navigate to th product page")
 def step_impl(context):
     text=context.driver.find_element(By.CLASS_NAME,"product_label").text
     assert text == "Products",f"{text} should be 'Products'"
+    context.driver.quit()
+
+@then("user should be not navigate to the product page")
+def step_impl(context):
+    text=context.driver.find_element(By.TAG_NAME,"//h3").text
+    assert text == "Username and password do not match any user in this service",f"{text} should be 'Username and password do not match any user in this service'"
     context.driver.quit()
